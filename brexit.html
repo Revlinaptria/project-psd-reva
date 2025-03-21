@@ -458,13 +458,13 @@ library(scales)  # Untuk format persen</code></pre>
 <pre><code>## The following object is masked from &#39;package:readr&#39;:
 ## 
 ##     col_factor</code></pre>
-<pre class="r"><code># Hitung proporsi tiap opini dalam setiap region
+<pre class="r"><code>#calculate the proportion of each opinion within each region
 brexit_prop &lt;- brexit %&gt;%
   group_by(region, opinion) %&gt;%
   summarise(count = n(), .groups = &quot;drop&quot;) %&gt;%
   mutate(proportion = count / sum(count))
 
-# Plot dengan facet per region dan sumbu y menunjukkan proporsi
+#plot using facets for each region, with the y-axis showing the proportion
 ggplot(brexit_prop, aes(x = opinion, y = proportion, fill = opinion)) +
   geom_col() +
   facet_wrap(~region, nrow = 1, scales = &quot;free_x&quot;, labeller = label_wrap_gen(width = 12)) +

@@ -85,13 +85,13 @@ First, calculate the proportion of wrong, right, and don't know answers in each 
 library(tidyverse)
 library(scales)  # Untuk format persen
 
-# Hitung proporsi tiap opini dalam setiap region
+#calculate the proportion of each opinion within each region
 brexit_prop <- brexit %>%
   group_by(region, opinion) %>%
   summarise(count = n(), .groups = "drop") %>%
   mutate(proportion = count / sum(count))
 
-# Plot dengan facet per region dan sumbu y menunjukkan proporsi
+#plot using facets for each region, with the y-axis showing the proportion
 ggplot(brexit_prop, aes(x = opinion, y = proportion, fill = opinion)) +
   geom_col() +
   facet_wrap(~region, nrow = 1, scales = "free_x", labeller = label_wrap_gen(width = 12)) +
@@ -129,9 +129,9 @@ ggplot(brexit_prop, aes(x = region, y = proportion, fill = opinion)) +
   scale_fill_manual(
     name = "Opinion",  # Memperbaiki legend
     values = c(
-      "Wrong" = "#ff69b4",  # Hot pink
-      "Right" = "#ffb6c1",  # Light pink
-      "Don't know" = "#BDB76B"  # Navy
+      "Wrong" = "#ff69b4",  
+      "Right" = "#ffb6c1",  
+      "Don't know" = "#BDB76B"  
     )
   ) +
   theme_minimal()
